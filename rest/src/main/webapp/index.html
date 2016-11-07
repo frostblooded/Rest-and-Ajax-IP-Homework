@@ -36,7 +36,7 @@
 		<h3>Browse cars</h3>
 		
 		<table infinite-scroll="cars.loadNext()"
-		       infinite-scroll-disabled="cars.busy"
+		       infinite-scroll-disabled="cars.busy || cars.shown_all"
                class="table table-striped table-bordered">
 			<thead>
 				<tr>

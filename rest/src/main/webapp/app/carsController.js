@@ -12,6 +12,7 @@ app.factory('cars', ['$http', function($http) {
 	var cars = function() {
 		this.items = [];
 		this.busy = false;
+		this.shown_all = false;
 		this.shown_pages = 0;
 	}
 
@@ -31,12 +32,16 @@ app.factory('cars', ['$http', function($http) {
 			}
 	      
 			this.shown_pages++;
-			this.busy = false;
 			
 			// Hot fix for when the contents don't fill the page
 			// and I don't want to compile the newest version of
 			// the library because I don't know how and I am lazy
 	        $(window).scroll();
+		}.bind(this)).error(function(err, status) {
+			if(status == 404)
+				this.shown_all = true;
+		}.bind(this)).finally(function() {
+			this.busy = false;
 		}.bind(this));
 	}
 	

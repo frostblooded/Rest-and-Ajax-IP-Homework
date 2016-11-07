@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class CarsData {
 	private static final CarsData INSTANCE = new CarsData();
-	private static final int SEED_SIZE = 100;
+	private static final int SEED_SIZE = 20;
 	private List<Car> cars = new ArrayList<>();
 
 	public List<Car> getCars() {

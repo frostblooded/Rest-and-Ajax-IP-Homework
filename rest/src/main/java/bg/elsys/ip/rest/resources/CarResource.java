@@ -23,8 +23,8 @@ public class CarResource {
 		int upperLimit = (page + 1) * ELEMENTS_PER_PAGE;
 		
 		if(upperLimit > cars.size()) {
-			if(bottomLimit > cars.size())
-				return Response.status(Status.NOT_FOUND).build();
+			if(bottomLimit >= cars.size())
+				return Response.status(Status.NOT_FOUND).entity("{\"error\": \"page not found\"}").build();
 			
 			upperLimit = cars.size();
 		}
