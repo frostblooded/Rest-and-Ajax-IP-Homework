@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<script
-	src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript" src="scripts.js"></script>
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+	<script type="text/javascript" src="https://rawgit.com/BinaryMuse/ngInfiniteScroll/1.0.0/build/ng-infinite-scroll.min.js"></script>
+	<script type="text/javascript" src="app/app.js"></script>
+	<script type="text/javascript" src="app/carsController.js"></script>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<title>Insert title here</title>
 </head>
-<body>
-	<script>
-		document.write(Date());
-	</script>
-	<button id="button">Get Users</button>
-	<table id="usersTable"></table>
+<body ng-app="restApp">
+	<div ng-controller="CarsController"
+		 infinite-scroll="cars.loadNext()"
+		 infinite-scroll-disabled='cars.busy'
+		 infinite-scroll-distance='1'
+		 class="cars">
+		<div ng-repeat="car in cars.items" class="car">
+			{{ car.id }}
+			{{ car.name }}
+			{{ car.color }}
+		</div>
+	</div>
+	
+	{{ cars.items }}
+	
+	<div ng-show='cars.busy'>Loading data...</div>
 </body>
 </html>
