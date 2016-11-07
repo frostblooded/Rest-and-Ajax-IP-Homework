@@ -1,7 +1,11 @@
 var app = angular.module('restApp', ['infinite-scroll']);
 
-app.controller('CarsController', function($scope, cars) {
+app.controller('CarsController', function($scope, $http, cars) {
 	$scope.cars = new cars();
+	
+	$http.get('api/colors').success(function(res) {
+		$scope.colors = res;
+	});
 });
 
 app.factory('cars', ['$http', function($http) {
@@ -34,7 +38,7 @@ app.factory('cars', ['$http', function($http) {
 			// the library because I don't know how and I am lazy
 	        $(window).scroll();
 		}.bind(this));
-	};
+	}
 	
 	return cars;
 }]);
