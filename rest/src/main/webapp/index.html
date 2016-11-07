@@ -7,21 +7,35 @@
 	<script type="text/javascript" src="https://rawgit.com/BinaryMuse/ngInfiniteScroll/1.0.0/build/ng-infinite-scroll.min.js"></script>
 	<script type="text/javascript" src="app/app.js"></script>
 	<script type="text/javascript" src="app/carsController.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="styles.css">
-	<title>Insert title here</title>
+	<title>Cars</title>
 </head>
 <body ng-app="restApp">
-	<div ng-controller="CarsController"
-		 infinite-scroll="cars.loadNext()"
-		 infinite-scroll-disabled='cars.busy'
-		 class="cars">
-		<div ng-repeat="car in cars.items" class="car">
-			{{ car.id }}
-			{{ car.name }}
-			{{ car.color }}
-		</div>
+	<div id="container">
+		<h1>Cars</h1>
+		
+		<table ng-controller="CarsController"
+			 infinite-scroll="cars.loadNext()"
+			 infinite-scroll-disabled="cars.busy"
+			 class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Name</th>
+					<th>Color</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="car in cars.items" class="car">
+					<td>{{ car.id }}</td>
+					<td>{{ car.name }}</td>
+					<td>{{ car.color }}</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<div ng-show='cars.busy'>Loading data...</div>
 	</div>
-	
-	<div ng-show='cars.busy'>Loading data...</div>
 </body>
 </html>
