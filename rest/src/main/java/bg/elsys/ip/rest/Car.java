@@ -3,9 +3,9 @@ package bg.elsys.ip.rest;
 public class Car {
 	int id;
 	String name;
-	String color;
+	Color color;
 
-	public Car(int id, String name, String color) {
+	public Car(int id, String name, Color color) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -28,11 +28,11 @@ public class Car {
 		this.name = name;
 	}
 
-	public String getColor() {
+	public Color getColor() {
 		return color;
 	}
 
-	public void setColor(String color) {
+	public void setColor(Color color) {
 		this.color = color;
 	}
 }

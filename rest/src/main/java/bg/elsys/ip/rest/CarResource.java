@@ -33,10 +33,7 @@ public class CarResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getUsers(@DefaultValue("-1") @QueryParam("page") int page) {
-		List<Car> cars = new ArrayList<>();
-		
-		for(int i = 0; i < 100; i++)
-			cars.add(new Car(i, "Car" + String.valueOf(i), "black"));
+		List<Car> cars = CarsData.getInstance().getCars();
 		
 		// If page parameter is passed
 		if(page >= 0)
