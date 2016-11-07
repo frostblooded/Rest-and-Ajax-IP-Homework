@@ -17,14 +17,14 @@ public class CarsData {
 		this.cars = cars;
 	}
 
-	public int getLastId() {
+	public int getNextId() {
 		int max = -1;
 		
-		for(Car car: cars)
+		for(Car car: getCars())
 			if(car.id > max)
 				max = car.id;
 		
-		return max;
+		return max + 1;
 	}
 	
 	public Color getRandomColor() {
@@ -35,7 +35,7 @@ public class CarsData {
 
 	private void generateSeedData() {
 		for (int i = 0; i < SEED_SIZE; i++) {
-			int id = getLastId() + 1;
+			int id = getNextId();
 			String name = "Car " + id;
 			cars.add(new Car(id, name, getRandomColor()));
 		}

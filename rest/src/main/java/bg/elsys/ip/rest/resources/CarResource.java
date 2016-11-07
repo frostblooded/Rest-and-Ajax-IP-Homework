@@ -1,9 +1,14 @@
 package bg.elsys.ip.rest.resources;
 
-	import java.util.List;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Comparator;
+import java.util.List;
 
 import javax.ws.rs.DefaultValue;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -13,6 +18,7 @@ import javax.ws.rs.core.Response.Status;
 
 import bg.elsys.ip.rest.Car;
 import bg.elsys.ip.rest.CarsData;
+import bg.elsys.ip.rest.Color;
 
 @Path("/cars")
 public class CarResource {
@@ -42,5 +48,15 @@ public class CarResource {
 			return handlePageParam(cars, page);
 		
 		return Response.ok(cars).build();
+	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response createCar(@FormParam("name") String name,
+			@FormParam("color") String color) throws URISyntaxException {
+		Car car = new Car(CarsData.getInstance().getNextId(), name, Color.valueOf(color));
+		CarsData.getInstance().getCars().add(car);
+		
+		return Response.temporaryRedirect(new URI("../")).build();
 	}
 }
