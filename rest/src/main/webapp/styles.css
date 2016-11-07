@@ -7,3 +7,8 @@
 th {
 	text-align: center;
 }
+
+form {
+	width: 30%;
+	margin: 20px auto;
+}
