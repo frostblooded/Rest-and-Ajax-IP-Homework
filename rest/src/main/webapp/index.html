@@ -14,7 +14,6 @@
 	<div ng-controller="CarsController"
 		 infinite-scroll="cars.loadNext()"
 		 infinite-scroll-disabled='cars.busy'
-		 infinite-scroll-distance='1'
 		 class="cars">
 		<div ng-repeat="car in cars.items" class="car">
 			{{ car.id }}
