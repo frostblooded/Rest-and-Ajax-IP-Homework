@@ -4,6 +4,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
@@ -40,8 +42,17 @@ public class CarResource {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getCars(@DefaultValue("-1") @QueryParam("page") int page) {
+	public Response getCars(@DefaultValue("-1") @QueryParam("page") int page,
+							@DefaultValue("") @QueryParam("color") String color) {
 		List<Car> cars = CarsData.getInstance().getCars();
+		
+		// If color parameter is passed
+		if(!color.equals("")) {
+			cars = cars.stream()
+					   .filter(c -> c.getColor() == Color.valueOf(color))
+					   .collect(Collectors.toList());
+		}
+			
 		
 		// If page parameter is passed
 		if(page >= 0)
