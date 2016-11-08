@@ -1,9 +1,9 @@
 package bg.elsys.ip.rest;
 
 public class Car {
-	int id;
-	String name;
-	Color color;
+	private int id;
+	private String name;
+	private Color color;
 
 	public Car(int id, String name, Color color) {
 		this.id = id;
