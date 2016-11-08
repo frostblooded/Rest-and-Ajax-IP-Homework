@@ -18,12 +18,12 @@
 		<form ng-submit="cars.create()">
 			<div class="form-group">
 				<label>Name:</label>
-				<input type="text" class="form-control" ng-model="new_car_name">
+				<input type="text" class="form-control" ng-model="new_car.name">
 			</div>
 			
 			<div class="form-group">	
 				<label>Color:</label>
-				<select class="form-control" ng-model="new_car_color">
+				<select class="form-control" ng-model="new_car.color">
 					<option ng-repeat="color in colors" value="{{ color }}">
 						{{ color }}
 					</option>
@@ -31,6 +31,7 @@
 			</div>
 			
 			<button type="submit" class="btn btn-default">Create car</button>
+			<div id="progress">{{ progress }}</div>
 		</form>
 		
 		<h3>Browse cars</h3>
