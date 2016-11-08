@@ -6,10 +6,17 @@ public class Car {
 	Color color;
 
 	public Car(int id, String name, Color color) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.color = color;
+	}
+
+	public Car(String name, Color color) {
+		this(CarsData.getInstance().getNextId(), name, color);
+	}
+	
+	public Car() {
+		this("", null);
 	}
 
 	public int getId() {

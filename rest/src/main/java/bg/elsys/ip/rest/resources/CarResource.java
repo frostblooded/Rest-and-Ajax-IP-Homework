@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -17,6 +18,10 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.fasterxml.jackson.jaxrs.json.annotation.JSONP;
 
 import bg.elsys.ip.rest.Car;
 import bg.elsys.ip.rest.CarsData;
@@ -62,12 +67,9 @@ public class CarResource {
 	}
 	
 	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response createCar(@FormParam("name") String name,
-			@FormParam("color") String color) throws URISyntaxException {
-		Car car = new Car(CarsData.getInstance().getNextId(), name, Color.valueOf(color));
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response createCar(Car car) {
 		CarsData.getInstance().getCars().add(car);
-		
-		return Response.temporaryRedirect(new URI("../")).build();
+		return Response.ok().build();
 	}
 }

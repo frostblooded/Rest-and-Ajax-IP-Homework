@@ -12,8 +12,18 @@ function infiniteScrollFix() {
 app.controller('CarsController', function($scope, $http, cars) {
 	$scope.cars = new cars();
 	
+	cars.prototype.create = function() {
+		var data = {
+			name: $scope.new_car_name,
+			color: $scope.new_car_color
+		};
+		
+		$http.post('api/cars', data);
+	}
+	
 	$http.get('api/colors').success(function(res) {
 		$scope.colors = res;
+		$scope.new_car_color = res[0];
 		$scope.filter_color = NO_FILTER;
 	});
 });
