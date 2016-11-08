@@ -18,7 +18,9 @@ app.controller('CarsController', function($scope, $http, cars) {
 			color: $scope.new_car_color
 		};
 		
-		$http.post('api/cars', data);
+		$http.post('api/cars', data).success(function() {
+			$scope.new_car_name = "";
+		});
 	}
 	
 	$http.get('api/colors').success(function(res) {
