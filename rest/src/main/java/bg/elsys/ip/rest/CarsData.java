@@ -21,8 +21,8 @@ public class CarsData {
 		int max = -1;
 		
 		for(Car car: getCars())
-			if(car.id > max)
-				max = car.id;
+			if(car.getId() > max)
+				max = car.getId();
 		
 		return max + 1;
 	}
