@@ -43,10 +43,13 @@
 					<td>Filters</td>
 					<td></td>
 					<td>
-						<select ng-change="cars.loadFilteredByColor(filterColor)"
-						        ng-model="filterColor"
+						<select ng-change="cars.loadFilteredByColor(filter_color)"
+						        ng-model="filter_color"
 						        id="color-filter"
 						        class="form-control">
+							<option value="no_filter">
+								(no filter)
+							</option>
 							<option ng-repeat="color in colors" value="{{ color }}">
 								{{ color }}
 							</option>

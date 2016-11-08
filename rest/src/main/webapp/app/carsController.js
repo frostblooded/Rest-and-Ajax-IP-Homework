@@ -1,5 +1,7 @@
 var app = angular.module('restApp', ['infinite-scroll']);
 
+var NO_FILTER = "no_filter";
+
 function infiniteScrollFix() {
 	// Hot fix for when the contents don't fill the page
 	// and I don't want to compile the newest version of
@@ -12,6 +14,7 @@ app.controller('CarsController', function($scope, $http, cars) {
 	
 	$http.get('api/colors').success(function(res) {
 		$scope.colors = res;
+		$scope.filter_color = NO_FILTER;
 	});
 });
 
@@ -58,7 +61,7 @@ app.factory('cars', ['$http', function($http) {
 	}
 	
 	cars.prototype.loadFilteredByColor = function(color) {
-		this.color_filter = color;
+		this.color_filter = color == NO_FILTER ? null : color;
 		this.clean();
 		this.loadNext();
 	}
