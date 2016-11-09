@@ -53,7 +53,7 @@ public class CarResource {
 		// If color parameter is passed
 		if(!name.equals("")) {
 			cars = cars.stream()
-					   .filter(c -> c.getName().contains(name))
+					   .filter(c -> c.getName().toLowerCase().contains(name.toLowerCase()))
 					   .collect(Collectors.toList());
 		}
 		
