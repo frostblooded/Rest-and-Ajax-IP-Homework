@@ -39,7 +39,8 @@ public class CarResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getCars(@DefaultValue("-1") @QueryParam("page") int page,
-							@DefaultValue("") @QueryParam("color") String color) {
+							@DefaultValue("") @QueryParam("color") String color,
+							@DefaultValue("") @QueryParam("name") String name) {
 		List<Car> cars = CarsData.getInstance().getCars();
 		
 		// If color parameter is passed
@@ -48,7 +49,13 @@ public class CarResource {
 					   .filter(c -> c.getColor() == Color.valueOf(color))
 					   .collect(Collectors.toList());
 		}
-			
+		
+		// If color parameter is passed
+		if(!name.equals("")) {
+			cars = cars.stream()
+					   .filter(c -> c.getName().contains(name))
+					   .collect(Collectors.toList());
+		}
 		
 		// If page parameter is passed
 		if(page >= 0)
