@@ -1,4 +1,4 @@
-var app = angular.module('restApp', ['infinite-scroll']);
+var app = angular.module('restApp', ['infinite-scroll', 'ngMaterial']);
 
 var NO_FILTER = "no_filter";
 
@@ -11,6 +11,7 @@ function infiniteScrollFix() {
 
 app.controller('CarsController', function($scope, $http, cars) {
 	$scope.cars = new cars();
+	$scope.autocomplete_items = [];
 	$scope.new_car = {};
 	$scope.progress = "";
 	
@@ -27,6 +28,21 @@ app.controller('CarsController', function($scope, $http, cars) {
 		$scope.new_car.color = res[0];
 		$scope.filter_color = NO_FILTER;
 	});
+	
+	$scope.loadAutocomplete = function(text) {
+		if(text.length < 1)
+			return;
+		
+		var options = {
+			params: {
+				name: text
+			}	
+		};
+		
+		$http.get('api/cars', options).success(function(res) {
+			$scope.autocomplete_items = res;
+		});
+	}
 });
 
 app.factory('cars', ['$http', function($http) {
@@ -38,6 +54,7 @@ app.factory('cars', ['$http', function($http) {
 	
 	cars.prototype.clean = function() {
 		this.items = [];
+		this.autocomplete_items = [];
 		this.busy = false;
 		this.shown_all = false;
 		this.shown_pages = 0;
