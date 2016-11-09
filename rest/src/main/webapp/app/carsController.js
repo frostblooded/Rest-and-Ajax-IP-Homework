@@ -11,7 +11,6 @@ function infiniteScrollFix() {
 
 app.controller('CarsController', function($scope, $http, cars) {
 	$scope.cars = new cars();
-	$scope.autocomplete_items = [];
 	$scope.new_car = {};
 	$scope.progress = "";
 	
@@ -30,17 +29,8 @@ app.controller('CarsController', function($scope, $http, cars) {
 	});
 	
 	$scope.loadAutocomplete = function(text) {
-		if(text.length < 1)
-			return;
-		
-		var options = {
-			params: {
-				name: text
-			}	
-		};
-		
-		$http.get('api/cars', options).success(function(res) {
-			$scope.autocomplete_items = res;
+		return $http.get('api/cars', {params: {name: text}}).then(function(res) {
+			return res.data;
 		});
 	}
 });
@@ -54,7 +44,6 @@ app.factory('cars', ['$http', function($http) {
 	
 	cars.prototype.clean = function() {
 		this.items = [];
-		this.autocomplete_items = [];
 		this.busy = false;
 		this.shown_all = false;
 		this.shown_pages = 0;

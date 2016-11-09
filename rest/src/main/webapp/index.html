@@ -48,10 +48,9 @@
 				<tr id="filters">
 					<td>Filters</td>
 					<td>
-						<md-autocomplete md-items="car in autocomplete_items"
+						<md-autocomplete md-items="car in loadAutocomplete(text)"
 										 md-item-text="car.name"
-										 md-search-text="text"
-										 md-search-text-change="loadAutocomplete(text)">
+										 md-search-text="text">
 							{{ car.name }}
 						</md-autocomplete>
 					</td>
