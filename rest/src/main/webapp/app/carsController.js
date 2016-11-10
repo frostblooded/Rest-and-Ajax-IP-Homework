@@ -36,6 +36,7 @@ app.controller('CarsController', function($scope, $http, cars) {
 	}
 });
 
+// Factory based on code from https://sroze.github.io/ngInfiniteScroll/demo_async.html
 app.factory('cars', ['$http', function($http) {
 	var cars = function() {
 		this.clean();

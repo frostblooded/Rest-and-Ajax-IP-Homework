@@ -20,9 +20,10 @@ public class CarsData {
 	public int getNextId() {
 		int max = -1;
 		
-		for(Car car: getCars())
+		for(Car car: getCars()) {
 			if(car.getId() > max)
 				max = car.getId();
+		}
 		
 		return max + 1;
 	}

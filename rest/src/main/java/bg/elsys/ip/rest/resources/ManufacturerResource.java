@@ -26,7 +26,7 @@ public class ManufacturerResource {
 									     .distinct()
 									     .collect(Collectors.toList());
 		
-		// If contains parameter is passed
+		// If 'contains' parameter is passed
 		if(!contains.equals("")) {
 			manufacturers = manufacturers.stream()
 										 .filter(m -> m.toLowerCase().contains(contains.toLowerCase()))
