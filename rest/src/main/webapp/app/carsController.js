@@ -17,7 +17,8 @@ app.controller('CarsController', function($scope, $http, cars) {
 	cars.prototype.create = function() {
 		$scope.progress = "Creating car...";
 		$http.post('api/cars', $scope.new_car).success(function() {
-			$scope.new_car.name = "";
+			$scope.new_car.manufacturer = "";
+			$scope.new_car.model = "";
 			$scope.progress = "";
 		});
 	}
@@ -28,8 +29,8 @@ app.controller('CarsController', function($scope, $http, cars) {
 		$scope.filter_color = NO_FILTER;
 	});
 	
-	$scope.loadAutocomplete = function(text) {
-		return $http.get('api/cars', {params: {name: text}}).then(function(res) {
+	$scope.loadManufacturers = function(text) {
+		return $http.get('api/manufacturers', {params: {contains: text}}).then(function(res) {
 			return res.data;
 		});
 	}
@@ -39,7 +40,7 @@ app.factory('cars', ['$http', function($http) {
 	var cars = function() {
 		this.clean();
 		this.color_filter = null;
-		this.name_filter = null;
+		this.manufacturer_filter = null;
 	}
 	
 	cars.prototype.clean = function() {
@@ -60,7 +61,10 @@ app.factory('cars', ['$http', function($http) {
 		};
 		
 		if(this.color_filter)
-			options.params.color = this.color_filter;
+			options.params.color = this.color_filter;	
+		
+		if(this.manufacturer_filter)
+			options.params.manufacturer = this.manufacturer_filter;
 	
 		$http.get('api/cars', options).success(function(res) {
 			for (var i = 0; i < res.length; i++) {
@@ -79,6 +83,12 @@ app.factory('cars', ['$http', function($http) {
 	
 	cars.prototype.loadFilteredByColor = function(color) {
 		this.color_filter = color == NO_FILTER ? null : color;
+		this.clean();
+		this.loadNext();
+	}
+	
+	cars.prototype.loadFilteredByManufacturer = function(manufacturer) {
+		this.manufacturer_filter = manufacturer;
 		this.clean();
 		this.loadNext();
 	}

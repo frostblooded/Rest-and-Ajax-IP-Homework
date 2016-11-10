@@ -22,8 +22,13 @@
 		<h3>Make a new car</h3>
 		<form ng-submit="cars.create()">
 			<div class="form-group">
-				<label>Name:</label>
-				<input type="text" class="form-control" ng-model="new_car.name">
+				<label>Manufacturer:</label>
+				<input type="text" class="form-control" ng-model="new_car.manufacturer">
+			</div>
+			
+			<div class="form-group">
+				<label>Model:</label>
+				<input type="text" class="form-control" ng-model="new_car.model">
 			</div>
 			
 			<div class="form-group">	
@@ -48,13 +53,19 @@
 				<tr id="filters">
 					<td>Filters</td>
 					<td>
-						<md-autocomplete md-items="car in loadAutocomplete(text)"
-										 md-item-text="car.name"
+						<md-autocomplete md-items="m in loadManufacturers(text)"
+										 md-item-text="m"
 										 md-search-text="text"
-										 placeholder="Search cars">
-							{{ car.name }}
+										 md-selected-item="selected"
+										 md-selected-item-change="cars.loadFilteredByManufacturer(selected)"
+										 md-autoselect="true"
+										 md-select-on-match="true"
+										 md-no-cache="true"
+										 placeholder="Search manufacturers">
+							<span md-highlight-text="text">{{ m }}</span>
 						</md-autocomplete>
 					</td>
+					<td></td>
 					<td>
 						<select ng-change="cars.loadFilteredByColor(filter_color)"
 						        ng-model="filter_color"
@@ -71,14 +82,16 @@
 				</tr>
 				<tr>
 					<th>#</th>
-					<th>Name</th>
+					<th>Manufacturer</th>
+					<th>Model</th>
 					<th>Color</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="car in cars.items" class="car">
 					<td>{{ car.id }}</td>
-					<td>{{ car.name }}</td>
+					<td>{{ car.manufacturer }}</td>
+					<td>{{ car.model }}</td>
 					<td>{{ car.color }}</td>
 				</tr>
 			</tbody>

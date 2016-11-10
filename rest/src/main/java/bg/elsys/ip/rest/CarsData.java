@@ -34,10 +34,15 @@ public class CarsData {
 	}
 
 	private void generateSeedData() {
+		String[] manufcaturers = new String[]{ "Audi", "Tesla", "Mercedes-Benz", "Jeep" };
+		Random rand = new Random();
+		
 		for (int i = 0; i < SEED_SIZE; i++) {
 			int id = getNextId();
-			String name = "Car " + id;
-			cars.add(new Car(id, name, getRandomColor()));
+			String manufacturer = manufcaturers[rand.nextInt(manufcaturers.length)];
+			String model = "Model " + rand.nextInt();
+			
+			cars.add(new Car(id, manufacturer, model, getRandomColor()));
 		}
 	}
 

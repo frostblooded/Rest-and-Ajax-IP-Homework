@@ -40,9 +40,9 @@ public class CarResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getCars(@DefaultValue("-1") @QueryParam("page") int page,
 							@DefaultValue("") @QueryParam("color") String color,
-							@DefaultValue("") @QueryParam("name") String name) {
+							@DefaultValue("") @QueryParam("manufacturer") String manufacturer) {
 		List<Car> cars = CarsData.getInstance().getCars();
-		
+
 		// If color parameter is passed
 		if(!color.equals("")) {
 			cars = cars.stream()
@@ -50,13 +50,13 @@ public class CarResource {
 					   .collect(Collectors.toList());
 		}
 		
-		// If color parameter is passed
-		if(!name.equals("")) {
+		// If manufacturer parameter is passed
+		if(!manufacturer.equals("")) {
 			cars = cars.stream()
-					   .filter(c -> c.getName().toLowerCase().contains(name.toLowerCase()))
+					   .filter(c -> c.getManufacturer().toLowerCase().contains(manufacturer.toLowerCase()))
 					   .collect(Collectors.toList());
 		}
-		
+
 		// If page parameter is passed
 		if(page >= 0)
 			return handlePageParam(cars, page);

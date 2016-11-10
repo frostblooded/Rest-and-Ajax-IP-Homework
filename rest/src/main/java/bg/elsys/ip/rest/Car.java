@@ -2,21 +2,23 @@ package bg.elsys.ip.rest;
 
 public class Car {
 	private int id;
-	private String name;
+	private String manufacturer;
+	private String model;
 	private Color color;
 
-	public Car(int id, String name, Color color) {
+	public Car(int id, String manufacturer, String model, Color color) {
 		this.id = id;
-		this.name = name;
+		this.manufacturer = manufacturer;
+		this.model = model;
 		this.color = color;
 	}
 
-	public Car(String name, Color color) {
-		this(CarsData.getInstance().getNextId(), name, color);
+	public Car(String manufacturer, String model, Color color) {
+		this(CarsData.getInstance().getNextId(), manufacturer, model, color);
 	}
 	
 	public Car() {
-		this("", null);
+		this("", "", null);
 	}
 
 	public int getId() {
@@ -27,12 +29,20 @@ public class Car {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getModel() {
+		return model;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public String getManufacturer() {
+		return manufacturer;
+	}
+
+	public void setManufacturer(String manufacturer) {
+		this.manufacturer = manufacturer;
 	}
 
 	public Color getColor() {
