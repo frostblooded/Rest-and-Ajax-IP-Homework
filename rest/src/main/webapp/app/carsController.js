@@ -12,16 +12,6 @@ function infiniteScrollFix() {
 app.controller('CarsController', function($scope, $http, cars) {
 	$scope.cars = new cars();
 	$scope.new_car = {};
-	$scope.progress = "";
-	
-	cars.prototype.create = function() {
-		$scope.progress = "Creating car...";
-		$http.post('api/cars', $scope.new_car).success(function() {
-			$scope.new_car.manufacturer = "";
-			$scope.new_car.model = "";
-			$scope.progress = "";
-		});
-	}
 	
 	$http.get('api/colors').success(function(res) {
 		$scope.colors = res;
@@ -49,6 +39,13 @@ app.factory('cars', ['$http', function($http) {
 		this.busy = false;
 		this.shown_all = false;
 		this.shown_pages = 0;
+	}
+	
+	cars.prototype.create = function(new_car) {
+		$http.post('api/cars', new_car).success(function() {
+			new_car.manufacturer = "";
+			new_car.model = "";
+		});
 	}
 
 	cars.prototype.loadNext = function() {
