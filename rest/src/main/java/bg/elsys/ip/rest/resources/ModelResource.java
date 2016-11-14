@@ -18,7 +18,7 @@ import bg.elsys.ip.rest.CarsData;
 public class ModelResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getColors(@DefaultValue("") @QueryParam("contains") String contains) {
+	public Response getModels(@DefaultValue("") @QueryParam("contains") String contains) {
 		List<Car> cars = CarsData.getInstance().getCars();
 		
 		List<String> models = cars.stream()
