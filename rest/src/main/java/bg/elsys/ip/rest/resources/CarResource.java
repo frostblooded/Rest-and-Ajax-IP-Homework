@@ -61,10 +61,6 @@ public class CarResource {
 		
 		// If model parameter is passed
 		if(!model.equals("")) {
-			for(Car car: cars) {
-				System.out.println(car.getModel() + " - " + model + " - " + car.getModel().equals(model.toLowerCase()));
-			}
-			
 			cars = cars.stream()
 					   .filter(c -> c.getModel().toLowerCase().equals(model.toLowerCase()))
 					   .collect(Collectors.toList());
