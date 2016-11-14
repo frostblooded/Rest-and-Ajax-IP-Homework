@@ -43,7 +43,10 @@ public class CarsData {
 			String manufacturer = manufcaturers[rand.nextInt(manufcaturers.length)];
 			String model = "Model " + rand.nextInt();
 			
-			cars.add(new Car(id, manufacturer, model, getRandomColor()));
+			// Get a random year between 1950 and 2020
+			String year = String.valueOf(1950 + rand.nextInt(70));
+			
+			cars.add(new Car(id, manufacturer, model, year, getRandomColor()));
 		}
 	}
 

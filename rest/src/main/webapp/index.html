@@ -66,6 +66,7 @@
 						</md-autocomplete>
 					</td>
 					<td></td>
+					<td></td>
 					<td>
 						<select ng-change="cars.loadFilteredByColor(filter_color)"
 						        ng-model="filter_color"
@@ -84,6 +85,7 @@
 					<th>#</th>
 					<th>Manufacturer</th>
 					<th>Model</th>
+					<th>Year</th>
 					<th>Color</th>
 				</tr>
 			</thead>
@@ -92,6 +94,7 @@
 					<td>{{ car.id }}</td>
 					<td>{{ car.manufacturer }}</td>
 					<td>{{ car.model }}</td>
+					<td>{{ car.year }}</td>
 					<td>{{ car.color }}</td>
 				</tr>
 			</tbody>

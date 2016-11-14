@@ -4,21 +4,23 @@ public class Car {
 	private int id;
 	private String manufacturer;
 	private String model;
+	private String year;
 	private Color color;
 
-	public Car(int id, String manufacturer, String model, Color color) {
+	public Car(int id, String manufacturer, String model, String year, Color color) {
 		this.id = id;
 		this.manufacturer = manufacturer;
 		this.model = model;
+		this.year = year;
 		this.color = color;
 	}
 
-	public Car(String manufacturer, String model, Color color) {
-		this(CarsData.getInstance().getNextId(), manufacturer, model, color);
+	public Car(String manufacturer, String model, String year, Color color) {
+		this(CarsData.getInstance().getNextId(), manufacturer, model, year, color);
 	}
 	
 	public Car() {
-		this("", "", null);
+		this("", "", "", null);
 	}
 
 	public int getId() {
@@ -43,6 +45,14 @@ public class Car {
 
 	public void setManufacturer(String manufacturer) {
 		this.manufacturer = manufacturer;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
 	}
 
 	public Color getColor() {
