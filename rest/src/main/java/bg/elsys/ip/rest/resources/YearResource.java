@@ -10,6 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import bg.elsys.ip.rest.Car;
 import bg.elsys.ip.rest.CarsData;
@@ -18,7 +19,7 @@ import bg.elsys.ip.rest.CarsData;
 public class YearResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getYears(@DefaultValue("") @QueryParam("contains") String contains) {
+	public Response getYears(@QueryParam("contains") String contains) {
 		List<Car> cars = CarsData.getInstance().getCars();
 		
 		List<String> years = cars.stream()
@@ -26,12 +27,14 @@ public class YearResource {
 							     .distinct()
 							     .collect(Collectors.toList());
 		
-		// If 'contains' parameter is passed
-		if(!contains.equals("")) {
-			years = years.stream()
-			 			 .filter(y -> y.toLowerCase().contains(contains.toLowerCase()))
-			 			 .collect(Collectors.toList());
-		}
+		// If 'contains' parameter isn't passed
+		if(contains == null)
+			return Response.status(Status.BAD_REQUEST).entity("contains parameter is required").build();
+		
+		years = years.stream()
+		 			 .filter(y -> y.toLowerCase().contains(contains.toLowerCase()))
+		 			 .collect(Collectors.toList());
+		
 		
 		return Response.ok(years).build();
 	}
