@@ -41,7 +41,7 @@ public class CarsData {
 		for (int i = 0; i < SEED_SIZE; i++) {
 			int id = getNextId();
 			String manufacturer = manufcaturers[rand.nextInt(manufcaturers.length)];
-			String model = "Model " + rand.nextInt();
+			String model = "Model " + (char)('A' + rand.nextInt('Z' - 'A'));
 			
 			// Get a random year between 1950 and 2020
 			String year = String.valueOf(1950 + rand.nextInt(70));

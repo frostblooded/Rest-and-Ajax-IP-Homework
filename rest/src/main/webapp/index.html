@@ -58,20 +58,44 @@
 				<tr id="filters">
 					<td>Filters</td>
 					<td>
-						<md-autocomplete md-items="m in loadManufacturers(text)"
-										 md-item-text="m"
-										 md-search-text="text"
-										 md-selected-item="selected"
-										 md-selected-item-change="cars.loadFilteredByManufacturer(selected)"
+						<md-autocomplete md-items="man in loadManufacturers(manfacturer_filter)"
+										 md-item-text="man"
+										 md-search-text="manfacturer_filter"
+										 md-selected-item="manufacturer_selected"
+										 md-selected-item-change="cars.loadFilteredByManufacturer(manufacturer_selected)"
 										 md-autoselect="true"
 										 md-select-on-match="true"
 										 md-no-cache="true"
 										 placeholder="Search manufacturers">
-							<span md-highlight-text="text">{{ m }}</span>
+							<span md-highlight-text="manfacturer_filter">{{ man }}</span>
 						</md-autocomplete>
 					</td>
-					<td></td>
-					<td></td>
+					<td>
+						<md-autocomplete md-items="mod in loadModels(model_filter)"
+										 md-item-text="mod"
+										 md-search-text="model_filter"
+										 md-selected-item="model_selected"
+										 md-selected-item-change="cars.loadFilteredByModel(model_selected)"
+										 md-autoselect="true"
+										 md-select-on-match="true"
+										 md-no-cache="true"
+										 placeholder="Search models">
+							<span md-highlight-text="model_filter">{{ mod }}</span>
+						</md-autocomplete>
+					</td>
+					<td>
+						<md-autocomplete md-items="year in loadYears(year_filter)"
+										 md-item-text="year"
+										 md-search-text="year_filter"
+										 md-selected-item="year_selected"
+										 md-selected-item-change="cars.loadFilteredByYear(year_selected)"
+										 md-autoselect="true"
+										 md-select-on-match="true"
+										 md-no-cache="true"
+										 placeholder="Search years">
+							<span md-highlight-text="year_filter">{{ year }}</span>
+						</md-autocomplete>
+					</td>
 					<td>
 						<select ng-change="cars.loadFilteredByColor(filter_color)"
 						        ng-model="filter_color"

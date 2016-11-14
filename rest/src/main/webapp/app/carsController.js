@@ -24,6 +24,18 @@ app.controller('CarsController', function($scope, $http, cars) {
 			return res.data;
 		});
 	}
+	
+	$scope.loadModels = function(text) {
+		return $http.get('api/models', {params: {contains: text}}).then(function(res) {
+			return res.data;
+		});
+	}
+	
+	$scope.loadYears = function(text) {
+		return $http.get('api/years', {params: {contains: text}}).then(function(res) {
+			return res.data;
+		});
+	}
 });
 
 // Factory based on code from https://sroze.github.io/ngInfiniteScroll/demo_async.html
@@ -32,6 +44,8 @@ app.factory('cars', ['$http', function($http) {
 		this.clean();
 		this.color_filter = null;
 		this.manufacturer_filter = null;
+		this.model_filter = null;
+		this.year_filter = null;
 	}
 	
 	cars.prototype.clean = function() {
@@ -59,10 +73,16 @@ app.factory('cars', ['$http', function($http) {
 		};
 		
 		if(this.color_filter)
-			options.params.color = this.color_filter;	
+			options.params.color = this.color_filter;
 		
 		if(this.manufacturer_filter)
 			options.params.manufacturer = this.manufacturer_filter;
+		
+		if(this.model_filter)
+			options.params.model = this.model_filter;
+		
+		if(this.year_filter)
+			options.params.year = this.year_filter;
 	
 		$http.get('api/cars', options).success(function(res) {
 			for (var i = 0; i < res.length; i++) {
@@ -87,6 +107,18 @@ app.factory('cars', ['$http', function($http) {
 	
 	cars.prototype.loadFilteredByManufacturer = function(manufacturer) {
 		this.manufacturer_filter = manufacturer;
+		this.clean();
+		this.loadNext();
+	}
+	
+	cars.prototype.loadFilteredByModel = function(model) {
+		this.model_filter = model;
+		this.clean();
+		this.loadNext();
+	}
+	
+	cars.prototype.loadFilteredByYear = function(year) {
+		this.year_filter = year;
 		this.clean();
 		this.loadNext();
 	}

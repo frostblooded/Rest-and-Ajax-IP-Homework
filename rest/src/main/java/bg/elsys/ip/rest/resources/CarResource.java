@@ -40,7 +40,9 @@ public class CarResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getCars(@DefaultValue("-1") @QueryParam("page") int page,
 							@DefaultValue("") @QueryParam("color") String color,
-							@DefaultValue("") @QueryParam("manufacturer") String manufacturer) {
+							@DefaultValue("") @QueryParam("manufacturer") String manufacturer,
+							@DefaultValue("") @QueryParam("model") String model,
+							@DefaultValue("") @QueryParam("year") String year) {
 		List<Car> cars = CarsData.getInstance().getCars();
 
 		// If color parameter is passed
@@ -53,7 +55,25 @@ public class CarResource {
 		// If manufacturer parameter is passed
 		if(!manufacturer.equals("")) {
 			cars = cars.stream()
-					   .filter(c -> c.getManufacturer().toLowerCase().contains(manufacturer.toLowerCase()))
+					   .filter(c -> c.getManufacturer().toLowerCase().equals(manufacturer.toLowerCase()))
+					   .collect(Collectors.toList());
+		}
+		
+		// If model parameter is passed
+		if(!model.equals("")) {
+			for(Car car: cars) {
+				System.out.println(car.getModel() + " - " + model + " - " + car.getModel().equals(model.toLowerCase()));
+			}
+			
+			cars = cars.stream()
+					   .filter(c -> c.getModel().toLowerCase().equals(model.toLowerCase()))
+					   .collect(Collectors.toList());
+		}
+		
+		// If year parameter is passed
+		if(!year.equals("")) {
+			cars = cars.stream()
+					   .filter(c -> c.getYear().equals(year))
 					   .collect(Collectors.toList());
 		}
 
