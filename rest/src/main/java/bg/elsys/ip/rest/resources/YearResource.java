@@ -32,7 +32,7 @@ public class YearResource {
 			return Response.status(Status.BAD_REQUEST).entity("contains parameter is required").build();
 		
 		years = years.stream()
-		 			 .filter(y -> y.toLowerCase().contains(contains.toLowerCase()))
+		 			 .filter(y -> y.contains(contains))
 		 			 .collect(Collectors.toList());
 		
 		
