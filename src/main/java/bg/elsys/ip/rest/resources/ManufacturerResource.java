@@ -14,10 +14,18 @@ import javax.ws.rs.core.Response.Status;
 
 import bg.elsys.ip.rest.Car;
 import bg.elsys.ip.rest.CarsData;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @Path("/manufacturers")
+@Api("manufacturers")
 public class ManufacturerResource {
 	@GET
+	@ApiOperation(value = "Returns all unique manufacturers from the cars list",
+			response = String.class,
+			responseContainer = "List")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getManufacturers(@QueryParam("contains") String contains) {
 		List<Car> cars = CarsData.getInstance().getCars();

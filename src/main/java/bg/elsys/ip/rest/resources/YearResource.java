@@ -14,10 +14,17 @@ import javax.ws.rs.core.Response.Status;
 
 import bg.elsys.ip.rest.Car;
 import bg.elsys.ip.rest.CarsData;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @Path("/years")
+@Api("years")
 public class YearResource {
 	@GET
+	@ApiOperation(value = "Returns all unique years from the cars list",
+			notes = "The years are sorted in ascending order",
+			response = String.class,
+			responseContainer = "List")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getYears(@QueryParam("contains") String contains) {
 		List<Car> cars = CarsData.getInstance().getCars();

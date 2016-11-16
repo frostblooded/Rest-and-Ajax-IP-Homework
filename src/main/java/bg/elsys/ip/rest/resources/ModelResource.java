@@ -14,10 +14,16 @@ import javax.ws.rs.core.Response.Status;
 
 import bg.elsys.ip.rest.Car;
 import bg.elsys.ip.rest.CarsData;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @Path("/models")
+@Api("models")
 public class ModelResource {
 	@GET
+	@ApiOperation(value = "Returns all unique models from the cars list",
+			response = String.class,
+			responseContainer = "List")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getModels(@QueryParam("contains") String contains) {
 		List<Car> cars = CarsData.getInstance().getCars();
