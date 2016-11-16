@@ -32,6 +32,7 @@ public class YearResource {
 		List<String> years = cars.stream()
 							     .map(c -> c.getYear())
 							     .distinct()
+								 .sorted()
 							     .collect(Collectors.toList());
 		
 		// If 'contains' parameter isn't passed
