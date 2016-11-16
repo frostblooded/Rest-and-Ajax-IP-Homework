@@ -17,8 +17,10 @@ import javax.ws.rs.core.Response.Status;
 import bg.elsys.ip.rest.Car;
 import bg.elsys.ip.rest.CarsData;
 import bg.elsys.ip.rest.Color;
+import io.swagger.annotations.Api;
 
 @Path("/cars")
+@Api("cars")
 public class CarResource {
 	public final static int ELEMENTS_PER_PAGE = 10;
 	
