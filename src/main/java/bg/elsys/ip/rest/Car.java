@@ -1,5 +1,9 @@
 package bg.elsys.ip.rest;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value = "Car", description = "A model representing a single car")
 public class Car {
 	private int id;
 	private String manufacturer;
@@ -23,6 +27,7 @@ public class Car {
 		this("", "", "", null);
 	}
 
+	@ApiModelProperty(value = "car id", required = true)
 	public int getId() {
 		return id;
 	}
@@ -31,6 +36,7 @@ public class Car {
 		this.id = id;
 	}
 
+	@ApiModelProperty(value = "car model", required = true)
 	public String getModel() {
 		return model;
 	}
@@ -39,6 +45,7 @@ public class Car {
 		this.model = model;
 	}
 
+	@ApiModelProperty(value = "car manufacturer", required = true)
 	public String getManufacturer() {
 		return manufacturer;
 	}
@@ -47,6 +54,7 @@ public class Car {
 		this.manufacturer = manufacturer;
 	}
 
+	@ApiModelProperty(value = "car year", required = true)
 	public String getYear() {
 		return year;
 	}
@@ -55,6 +63,7 @@ public class Car {
 		this.year = year;
 	}
 
+	@ApiModelProperty(value = "car color", required = true)
 	public Color getColor() {
 		return color;
 	}

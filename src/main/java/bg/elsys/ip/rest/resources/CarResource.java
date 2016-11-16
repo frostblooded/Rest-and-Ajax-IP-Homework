@@ -17,7 +17,7 @@ import javax.ws.rs.core.Response.Status;
 import bg.elsys.ip.rest.Car;
 import bg.elsys.ip.rest.CarsData;
 import bg.elsys.ip.rest.Color;
-import io.swagger.annotations.Api;
+import io.swagger.annotations.*;
 
 @Path("/cars")
 @Api("cars")
@@ -39,12 +39,18 @@ public class CarResource {
 	}
 	
 	@GET
+	@ApiOperation(value = "Returns cars from the list",
+			response = Car.class,
+			responseContainer = "List")
+	@ApiResponses({
+			@ApiResponse(code = 404, message = "page not found")
+	})
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getCars(@DefaultValue("-1") @QueryParam("page") int page,
-							@QueryParam("color") String color,
-							@QueryParam("manufacturer") String manufacturer,
-							@QueryParam("model") String model,
-							@QueryParam("year") String year) {
+	public Response getCars(@ApiParam("which part of the data should be returned") @DefaultValue("-1") @QueryParam("page") int page,
+							@ApiParam("which color should the returned cars have") @QueryParam("color") String color,
+							@ApiParam("which manufacturer should the returned cars have") @QueryParam("manufacturer") String manufacturer,
+							@ApiParam("which model should the returned cars have") @QueryParam("model") String model,
+							@ApiParam("which year should the returned cars have") @QueryParam("year") String year) {
 		List<Car> cars = CarsData.getInstance().getCars();
 
 		// If color parameter is passed
@@ -83,6 +89,7 @@ public class CarResource {
 	}
 	
 	@POST
+	@ApiOperation("Creates a new car")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createCar(Car car) {
 		CarsData.getInstance().getCars().add(car);
