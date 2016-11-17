@@ -7,6 +7,7 @@ import java.util.Random;
 public class CarsData {
 	private static final CarsData INSTANCE = new CarsData();
 	private static final int SEED_SIZE = 1000;
+	private static int NEXT_ID = 0;
 	private List<Car> cars = new ArrayList<>();
 
 	public List<Car> getCars() {
@@ -18,16 +19,9 @@ public class CarsData {
 	}
 
 	public int getNextId() {
-		int max = -1;
-		
-		for(Car car: getCars()) {
-			if(car.getId() > max)
-				max = car.getId();
-		}
-		
-		return max + 1;
+		return NEXT_ID++;
 	}
-	
+
 	public Color getRandomColor() {
 		Color[] values = Color.values();
 		int randomIndex = new Random().nextInt(values.length);
