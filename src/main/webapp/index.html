@@ -20,7 +20,11 @@
 		<h1>Cars</h1>
 		
 		<h3>Make a new car</h3>
-		<form ng-submit="cars.create(new_car)">
+		<form ng-submit="create(new_car)">
+			<div ng-if="new_car.error" class="alert alert-danger">
+				{{ new_car.error }}
+			</div>
+
 			<div class="form-group">
 				<label>Manufacturer:</label>
 				<input type="text" class="form-control" ng-model="new_car.manufacturer">

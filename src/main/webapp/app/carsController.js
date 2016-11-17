@@ -10,9 +10,11 @@ function infiniteScrollFix() {
     $(window).scroll();
 }
 
-app.controller('CarsController', function($scope, $http, cars) {
+app.controller('CarsController', function($scope, $http, $timeout, cars) {
 	$scope.cars = new cars();
-	$scope.new_car = {};
+	$scope.new_car = {
+        error: ""
+    };
 	
 	$http.get('api/colors').success(function(res) {
 		$scope.colors = res;
@@ -37,6 +39,57 @@ app.controller('CarsController', function($scope, $http, cars) {
 			return res.data;
 		});
 	}
+
+	$scope.showError = function(text) {
+        $scope.new_car.error = text;
+
+        $timeout(function () {
+            $scope.new_car.error = "";
+        }, 3000);
+    }
+
+    $scope.create = function(new_car) {
+        if($scope.validate_car(new_car) == -1)
+            return -1;
+
+        // The data is almost the same as the object new_car,
+        // but doesn't contain the 'error' field and it seems
+        // better to send only this fields specifically instead of
+        // the object new_car
+        var data = {
+            manufacturer: new_car.manufacturer,
+            model: new_car.model,
+            year: new_car.year,
+            color: new_car.color
+        }
+
+        $http.post('api/cars', data).success(function() {
+            new_car.manufacturer = "";
+            new_car.model = "";
+        });
+    }
+
+    $scope.validate_car = function (new_car) {
+        if(!new_car.manufacturer || new_car.manufacturer == "") {
+            $scope.showError("Please enter a manufacturer");
+            return -1;
+        }
+
+        if(!new_car.model || new_car.model == "") {
+            $scope.showError("Please enter a model");
+            return -1;
+        }
+
+        if(!new_car.year || new_car.year == "") {
+            $scope.showError("Please enter a year");
+            return -1;
+        }
+
+        if(!new_car.color || new_car.color == "") {
+            $scope.showError("Please enter a color");
+            return -1;
+        }
+    }
 });
 
 // Factory based on code from https://sroze.github.io/ngInfiniteScroll/demo_async.html
@@ -54,13 +107,6 @@ app.factory('cars', ['$http', function($http) {
 		this.busy = false;
 		this.shown_all = false;
 		this.shown_pages = 0;
-	}
-	
-	cars.prototype.create = function(new_car) {
-		$http.post('api/cars', new_car).success(function() {
-			new_car.manufacturer = "";
-			new_car.model = "";
-		});
 	}
 
 	cars.prototype.loadNext = function() {
