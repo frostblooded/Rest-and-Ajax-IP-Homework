@@ -22,11 +22,9 @@ import io.swagger.annotations.*;
 @Path("/cars")
 @Api("cars")
 public class CarResource {
-	public final static int ELEMENTS_PER_PAGE = 10;
-	
-	private Response handlePageParam(List<Car> cars, int page) {
-		int bottomLimit = page * ELEMENTS_PER_PAGE;
-		int upperLimit = (page + 1) * ELEMENTS_PER_PAGE;
+	private Response handlePageParam(List<Car> cars, int page, int perPage) {
+		int bottomLimit = page * perPage;
+		int upperLimit = (page + 1) * perPage;
 		
 		if(upperLimit > cars.size()) {
 			if(bottomLimit >= cars.size())
@@ -47,6 +45,7 @@ public class CarResource {
 	})
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getCars(@ApiParam("which part of the data should be returned") @DefaultValue("-1") @QueryParam("page") int page,
+							@ApiParam("how many elements will be returned per page") @DefaultValue("10") @QueryParam("perPage") int perPage,
 							@ApiParam("which color should the returned cars have") @QueryParam("color") String color,
 							@ApiParam("which manufacturer should the returned cars have") @QueryParam("manufacturer") String manufacturer,
 							@ApiParam("which model should the returned cars have") @QueryParam("model") String model,
@@ -83,7 +82,7 @@ public class CarResource {
 
 		// If page parameter is passed
 		if(page >= 0)
-			return handlePageParam(cars, page);
+			return handlePageParam(cars, page, perPage);
 		
 		return Response.ok(cars).build();
 	}

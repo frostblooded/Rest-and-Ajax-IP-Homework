@@ -1,6 +1,7 @@
 var app = angular.module('restApp', ['infinite-scroll', 'ngMaterial']);
 
 var NO_FILTER = "no_filter";
+var PER_PAGE = 20;
 
 function infiniteScrollFix() {
 	// Hot fix for when the contents don't fill the page
@@ -68,7 +69,8 @@ app.factory('cars', ['$http', function($http) {
 		
 		var options = {
 			params: {
-				page: this.shown_pages
+				page: this.shown_pages,
+                perPage: PER_PAGE
 			}
 		};
 		
