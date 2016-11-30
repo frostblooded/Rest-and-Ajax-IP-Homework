@@ -3,8 +3,15 @@ package bg.elsys.ip.rest;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+
+@Entity
 @ApiModel(value = "Car", description = "A model representing a single car")
 public class Car {
+	@Id
 	private int id;
 	private String manufacturer;
 	private String model;
@@ -63,6 +70,7 @@ public class Car {
 		this.year = year;
 	}
 
+	@Enumerated(EnumType.ORDINAL)
 	@ApiModelProperty(value = "car color", required = true)
 	public Color getColor() {
 		return color;

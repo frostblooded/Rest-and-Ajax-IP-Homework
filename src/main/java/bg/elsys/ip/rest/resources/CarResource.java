@@ -17,7 +17,11 @@ import javax.ws.rs.core.Response.Status;
 import bg.elsys.ip.rest.Car;
 import bg.elsys.ip.rest.CarsData;
 import bg.elsys.ip.rest.Color;
+import bg.elsys.ip.rest.services.CarService;
 import io.swagger.annotations.*;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 
 @Path("/cars")
 @Api("cars")
@@ -50,7 +54,8 @@ public class CarResource {
 							@ApiParam("which manufacturer should the returned cars have") @QueryParam("manufacturer") String manufacturer,
 							@ApiParam("which model should the returned cars have") @QueryParam("model") String model,
 							@ApiParam("which year should the returned cars have") @QueryParam("year") String year) {
-		List<Car> cars = CarsData.getInstance().getCars();
+//		List<Car> cars = CarsData.getInstance().getCars();
+		List<Car> cars = CarService.getAll();
 
 		// If color parameter is passed
 		if(color != null) {
@@ -58,21 +63,21 @@ public class CarResource {
 					   .filter(c -> c.getColor() == Color.valueOf(color))
 					   .collect(Collectors.toList());
 		}
-		
+
 		// If manufacturer parameter is passed
 		if(manufacturer != null) {
 			cars = cars.stream()
 					   .filter(c -> c.getManufacturer().toLowerCase().equals(manufacturer.toLowerCase()))
 					   .collect(Collectors.toList());
 		}
-		
+
 		// If model parameter is passed
 		if(model != null) {
 			cars = cars.stream()
 					   .filter(c -> c.getModel().toLowerCase().equals(model.toLowerCase()))
 					   .collect(Collectors.toList());
 		}
-		
+
 		// If year parameter is passed
 		if(year != null) {
 			cars = cars.stream()
@@ -83,7 +88,7 @@ public class CarResource {
 		// If page parameter is passed
 		if(page >= 0)
 			return handlePageParam(cars, page, perPage);
-		
+
 		return Response.ok(cars).build();
 	}
 	
