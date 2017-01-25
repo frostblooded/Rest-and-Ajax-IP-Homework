@@ -18,6 +18,7 @@
           <element id="library" level="project" name="Gradle: org.glassfish.jersey.containers:jersey-container-servlet:2.22.2" />
           <element id="library" level="project" name="Gradle: io.swagger:swagger-jersey2-jaxrs:1.5.0" />
           <element id="library" level="project" name="Gradle: org.hibernate:hibernate-core:5.2.5.Final" />
+          <element id="library" level="project" name="Gradle: mysql:mysql-connector-java:5.1.31" />
           <element id="library" level="project" name="Gradle: org.slf4j:slf4j-nop:1.7.12" />
           <element id="library" level="project" name="Gradle: org.glassfish.jersey.core:jersey-common:2.22.2" />
           <element id="library" level="project" name="Gradle: org.glassfish.jersey.core:jersey-client:2.22.2" />
@@ -69,7 +70,6 @@
           <element id="library" level="project" name="Gradle: com.google.code.findbugs:annotations:2.0.1" />
           <element id="library" level="project" name="Gradle: joda-time:joda-time:2.2" />
           <element id="library" level="project" name="Gradle: io.swagger:swagger-annotations:1.5.0" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/mysql/mysql-connector-java/5.1.31/95baa522c5ae4dbff61e8ebd1b2578665d6853a0/mysql-connector-java-5.1.31.jar" />
         </element>
       </element>
       <element id="directory" name="META-INF">
