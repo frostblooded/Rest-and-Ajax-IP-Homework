@@ -66,6 +66,7 @@ app.controller('CarsController', function($scope, $http, $timeout, cars) {
         $http.post('api/cars', data).success(function() {
             new_car.manufacturer = "";
             new_car.model = "";
+			new_car.year = "";
         });
     }
 
